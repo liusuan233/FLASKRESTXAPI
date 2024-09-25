@@ -1,8 +1,9 @@
 from flask import request
-from flask_restx import Resource
-from resources import api
+from flask_restx import Resource,Api
 from services.NBAServices import NBAServices
 from models.NBAModels import NBATeams
+
+api = Api()
 
 class NBAResourcesDetail(Resource):
     @api.doc(params={"id": "球队ID"})
@@ -12,7 +13,7 @@ class NBAResourcesDetail(Resource):
         This method returns the details of a team by its name.
         """
         try:
-            NBAModels = NBAServices.get_teams_by_teamname(NBATeams,id)
+            NBAModels = NBAServices.get_teams_by_teamid(NBATeams,id)
             return {"id": f"{NBAModels.id}",
                     "team_name": f"{NBAModels.team_name}",
                     "founded_year": f"{NBAModels.founded_year}",
@@ -32,8 +33,8 @@ class NBAResourcesDetail(Resource):
         except Exception as e:
             return {"message": f"球队删除失败！{e}"}, 500
 
-    @api.doc(params={"team_name": "球队名称", "founded_year": "创立年份", "city": "所在城市",
-                     "championships_won": "冠军赛赢得次数"})
+    # @api.doc(params={"team_name": "球队名称", "founded_year": "创立年份", "city": "所在城市",
+    #                  "championships_won": "冠军赛赢得次数"})
     def put(self,id):
         """
         put方法用于更新球队详情
@@ -75,8 +76,8 @@ class NBAResourcesList(Resource):
             return {"message": f"获取球队列表失败！{e}"}, 500
 
 
-    @api.doc(params={"team_name": "球队名称", "founded_year": "创立年份", "city": "所在城市",
-                     "championships_won": "冠军赛赢得次数"})
+    # @api.doc(params={"team_name": "球队名称", "founded_year": "创立年份", "city": "所在城市",
+                     # "championships_won": "冠军赛赢得次数"})
     def post(self):
         """
         post方法用于创建球队
@@ -101,5 +102,3 @@ class NBAResourcesList(Resource):
             return {"message": f"球队创建失败！{e}"}, 500
 
 
-api.add_resource(NBAResourcesDetail, "/NBA/<int:id>")
-api.add_resource(NBAResourcesList, "/NBA")
