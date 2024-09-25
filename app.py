@@ -16,7 +16,6 @@ def create_app():
     api.add_resource(NBAResourcesDetail, "/NBA/<int:id>")
     api.add_resource(NBAResourcesList, "/NBA")
 
-
     return app
 
 
