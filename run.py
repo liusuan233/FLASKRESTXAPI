@@ -6,3 +6,4 @@ if __name__ == '__main__':
     app = create_app()
     # 启动app
     app.run(debug=True)
+
