@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_restx import Api
 from models.NBAModels import db
-from resources.NBAResources import NBAResourcesDetail,NBAResourcesList
+from resources.NBAResources import ns as ns_nba
 
 def create_app():
     # 初始化Flask应用
@@ -15,9 +15,11 @@ def create_app():
 
     # 初始化API
     api = Api(app, version='1.0', title='NBA API', description='This is a NBA API')
-    # 注册路由
-    api.add_resource(NBAResourcesDetail, "/NBA/<int:id>")
-    api.add_resource(NBAResourcesList, "/NBA")
+    api.add_namespace(ns_nba)
+
+    # # 注册路由
+    # api.add_resource(NBAResourcesDetail, "/NBA/<int:id>")
+    # api.add_resource(NBAResourcesList, "/NBA")
 
     return app
 
