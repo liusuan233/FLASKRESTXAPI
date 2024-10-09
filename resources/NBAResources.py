@@ -6,6 +6,7 @@ from app import db
 # 创建命名空间ns
 ns = Namespace('nba', description='NBA related operations')
 
+
 # 创建模型
 player_model = ns.model("NBATeams", {
     'team_name': fields.String(required=True, description='Team name'),
